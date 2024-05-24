@@ -1,19 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('Git Checkout') {
-          steps {
-              script {
-                  git branch: 'main',
-                      url: 'https://github.com/kbindesh/mvn-lab-project.git'
-              }
-          }
-    }
-
     stage("build"){
         steps {
               echo "----------- build started ----------"
-            sh 'mvn clean deploy -Dmaven.test.skip=true'
+            sh 'mvn clean deploy'
               echo "----------- build complted ----------"
         }
     }
