@@ -4,7 +4,7 @@ pipeline {
     stage("build"){
         steps {
               echo "----------- build started ----------"
-            sh 'mvn clean deploy'
+            sh 'mvn validate'
               echo "----------- build complted ----------"
         }
     }
