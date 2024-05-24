@@ -1,13 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage("build"){
-        steps {
-              echo "----------- build started ----------"
-            sh 'mvn validate'
-              echo "----------- build complted ----------"
-        }
-    }
     stage('SonarQube analysis') {
       environment {
         scannerHome = tool 'bin-sonar-scanner'
