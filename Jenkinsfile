@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                  script{
-                        dir("terraform")
+                        dir("mavenproject")
                         {
                             git "https://github.com/kbindesh/mvn-lab-project.git"
                         }
