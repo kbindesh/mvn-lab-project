@@ -1,22 +1,32 @@
 pipeline {
-  agent any
-  stages {
-    stage("build"){
-        steps {
-              echo "----------- build started ----------"
-            sh 'mvn clean validate'
-              echo "----------- build complted ----------"
+   agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                 script{
+                        dir("terraform")
+                        {
+                            git "https://github.com/kbindesh/mvn-lab-project.git"
+                        }
+                    }
+                }
+            }
+
+        stage('Compile the code') {
+            steps {
+                sh 'mvn compile'
+            }
         }
-    }
-    stage('SonarQube analysis') {
-      environment {
-        scannerHome = tool 'bin-sonar-scanner'
-      }
-      steps{
-        withSonarQubeEnv('sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
-          sh "${scannerHome}/bin/sonar-scanner"
+        stage('Package the app') {
+            steps {
+                script{
+                if (params.ACTION == 'apply') {
+                  sh "mvn package"
+                } else {
+                  sh "mvn package"
+                }
+            }
+          }
         }
-      } 
     }
   }
-}
