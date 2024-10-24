@@ -20,20 +20,10 @@ pipeline {
 
     // Cleanup the jenkins workspace before building an Application
     stages {
-
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace for ${APP_NAME}"
-                """
-            }
-        }
-
         // Build the application code using Maven
         stage('Code Build') {
             steps {
-                 sh 'mvn --version'
+                 sh 'mvn install -Dmaven.test.skip=true'
             }
         }
     }
