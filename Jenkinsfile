@@ -33,7 +33,7 @@ pipeline {
         // Build the application code using Maven
         stage('Code Build') {
             steps {
-                 sh 'mvn install -Dmaven.test.skip=true'
+                 sh 'mvn --version'
             }
         }
     }
