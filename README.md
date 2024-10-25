@@ -1,5 +1,3 @@
 # Sample Maven Project
 
-Some new changes
-
-new changes made on 22102024
+Maven project with build and code review stages
