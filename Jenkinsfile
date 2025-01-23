@@ -1,30 +1,15 @@
 pipeline {
-
-    // The agent name must match with the jenkins node name (Manage jenkins -> Nodes)
-    agent {
-        node {
-            label 'maven-build-server'
+  agent any
+  environment {
+    PATH = "$PATH:/opt/apache-maven-3.9.8/bin"
+  }
+  stages {
+    stage('Build and Reviewing Application') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh 'mvn clean package sonar:sonar'
         }
+      }
     }
-
-    // The tool name must match with the jenkins tools (global configuration) variable names
-    tools {
-        maven 'Maven-3.9.8'
-    }
-
-    // Define environment variables
-    environment {
-        APP_NAME = "BINDESH_APP"
-        APP_ENV  = "PRODUCTION"
-    }
-
-    // Cleanup the jenkins workspace before building an Application
-    stages {
-        // Build the application code using Maven
-        stage('Code Build Stage') {
-            steps {
-                 sh 'mvn install -Dmaven.test.skip=true'
-            }
-        }
-    }
+  }
 }
